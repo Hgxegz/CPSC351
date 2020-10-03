@@ -1,7 +1,5 @@
 extern printf
 extern scanf
-extern isinteger
-extern atolong
 
 
 global input_array
@@ -44,7 +42,6 @@ input_array:
 
 
   mov r14, 0
-  mov rbp, rsp
   mov r15, rdi  ;array is in rdi so we put that into r15
 
   loop_start:
@@ -70,19 +67,19 @@ input_array:
   call scanf
   pop r13
 
-  mov rax, 0
-  mov rdi, r13
-  call isinteger
+  ;mov rax, 0
+  ;mov rdi, r13
+  ;call isinteger
 
   ;validate
-  cmp rax, 1
-  je validprocessing
+  ;cmp rax, 1
+  ;je validprocessing
 
-  validprocessing:
-    mov rax, 0
-    mov rdi, rsp
-    call atolong
-    mov r13, rax
+  ;validprocessing:
+    ;mov rax, 0
+    ;mov rdi, rsp
+    ;call atolong
+    ;mov r13, rax
 
   mov rdi, intPrintFormat
   mov rsi, r13
@@ -95,7 +92,7 @@ input_array:
   mov rax, 0
   call printf
 
-  cmp r13, 0
+  cmp r13, 12345
   jne in_array
   je end_loop
 
