@@ -3,6 +3,8 @@ extern input_array
 extern printf
 
 section .data
+instructions1 db "Enter a sequence of long integers separated by white space,",10,0
+instructions2 db "After the last input press enter followed nu Control+D:"
 printSum db "The sum is %ld", 10, 0
 sizeCheck db "Size is %ld", 10,0
 
@@ -40,15 +42,15 @@ array_sum:
   cmp r13,r15
   je printsum
   jne addSum
+    addSum:
+      ADD r12,qword[r14 + r13* 8]
+      inc r13
+      jmp startLoop
     printsum:
       mov rdi, printSum
       mov rsi, r12
       mov rax, 0
       call printf 
-    addSum:
-      ADD r12,qword[r14 + r13* 8]
-      inc r13
-      jmp startLoop
 
   mov rdi, sizeCheck
   mov rsi, r15
@@ -57,6 +59,7 @@ array_sum:
 
 
   pop rax
+  mov rax, r12
   popf
   pop rbx
   pop r15
@@ -72,7 +75,6 @@ array_sum:
   pop rsi
   pop rdi
   pop rbp
-  mov rax, 0
 
   ret
 
